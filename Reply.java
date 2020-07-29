@@ -1,6 +1,5 @@
 public class Reply {
 	String TITLE;
-	int REPL_NUM;
 	String DETAIL;
 	String WRITER;
 	

@@ -1,4 +1,6 @@
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Scanner;
 
 public class main {
 
@@ -57,6 +59,14 @@ public class main {
 						System.out.print("* Select the commands \n- [A] : read all \n- [N] : not all \n- [D] : read detail \n>>> ");
 						String cmdRead = sc.nextLine();
 						if (cmdRead.equals("a")) {
+							for(int no : _paging_(artcList).keySet()) {
+								System.out.printf("▶ Page : %d \n",no);
+								////////////////////////////////////////////////////////////////////////////////////////
+								for (Article index : _paging_(artcList).get(no)) {
+//									readTitle(index);
+								}
+							}
+							
 							for(Article artc : artcList) readTitle(artc);
 							System.out.println("*********************");
 						}
@@ -129,6 +139,28 @@ public class main {
 		return false;
 	}
 	
+	//////////////////////////////////////////////////////////////////////////////////////
+	static HashMap<Integer, ArrayList<Article>> _paging_(ArrayList<Article> alist) {
+		ArrayList<Article> temp; 
+		HashMap<Integer, ArrayList<Article>> rst = new HashMap<>();
+		int set_ArtcPerPage = 10;
+//		int lastPage = (alist.size() % set_ArtcPerPage) > 0 ? (alist.size() / set_ArtcPerPage) + 1  : alist.size() / set_ArtcPerPage; 
+		int startPage = 1;
+		while(alist.isEmpty() != true) {
+			temp = new ArrayList<>();
+			for(int i=0; i<alist.size(); i++) {
+				temp.add(alist.get(0));
+				alist.remove(0);
+				if (i+1 == set_ArtcPerPage || ((alist.size() < set_ArtcPerPage) && i == alist.size())) {
+					rst.put(startPage, temp);
+					startPage ++;
+					break;
+				}
+			}
+		}
+		return rst;
+	}
+	
 	static void readTitle(Article artc) {
 		System.out.println("*********************");
 		System.out.printf("- [Number] : %d \n- [Title] : %s \n- [Writer] : %s\n",artc.ARTC_NUM, artc.TITLE, artc.WRITER);
@@ -139,10 +171,9 @@ public class main {
 		System.out.printf("- [Number] : %d \n- [Title] : %s \n- [Writer] : %s\n- [Detail] : %s \n- [Reply] : %d \n", artc.ARTC_NUM, artc.TITLE, artc.WRITER, artc.DETAIL, artc.REPLY.size());
 		if (artc.REPLY.isEmpty() != true) {
 			System.out.println("▒▒▒▒▒▒▒▒▒▒");
-			System.out.println("▒▒=REPL-LIST=▒▒");
 			for (Reply index : artc.REPLY) {
-				System.out.println("▒▒▒▒▒▒▒▒▒▒");
-				System.out.printf("- [Title] : %s \n- [Writer] : %s \n- [Detail] : %s \n", index.TITLE, index.WRITER, index.DETAIL);
+				System.out.printf("＠ REPL : %s \n", index.TITLE);
+				System.out.printf("- [Writer] : %s \n- [Detail] : %s \n", index.WRITER, index.DETAIL);
 			}System.out.println("▒▒▒▒▒▒▒▒▒▒");
 		}
 		
