@@ -145,6 +145,7 @@ public class main {
 				System.out.printf("- [Title] : %s \n- [Writer] : %s \n- [Detail] : %s \n", index.TITLE, index.WRITER, index.DETAIL);
 			}System.out.println("▒▒▒▒▒▒▒▒▒▒");
 		}
+		
 	}
 	
 	static void updateArticle(Article artc) {
