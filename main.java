@@ -61,7 +61,7 @@ public class main {
 						if (cmdRead.equals("a")) {
 							for(int no : _paging_(artcList).keySet()) {
 								System.out.printf("▶ Page : %d \n",no);
-								////////////////////////////////////////////////////////////////////////////////////////
+								//////////////////////////////////////////////////////////////////////////////////////////
 								for (Article index : _paging_(artcList).get(no)) {
 //									readTitle(index);
 								}
