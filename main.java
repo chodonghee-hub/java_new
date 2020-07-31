@@ -1,6 +1,8 @@
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
+import java.util.Set;
 
 public class main {
 
@@ -59,15 +61,17 @@ public class main {
 						System.out.print("* Select the commands \n- [A] : read all \n- [N] : not all \n- [D] : read detail \n>>> ");
 						String cmdRead = sc.nextLine();
 						if (cmdRead.equals("a")) {
-							for(int no : _paging_(artcList).keySet()) {
-								System.out.printf("▶ Page : %d \n",no);
-								//////////////////////////////////////////////////////////////////////////////////////////
-								for (Article index : _paging_(artcList).get(no)) {
-//									readTitle(index);
-								}
-							}
+							Map<Integer, ArrayList<Article>> rmap = _paging_(artcList);
+							Set<Integer> keys = rmap.keySet();
 							
-							for(Article artc : artcList) readTitle(artc);
+//							System.out.println("keySet Size : " + keys.size());
+//							for (int key : keys) System.out.println((key));
+//							for(int no : _paging_(artcList).keySet()) {
+							
+							for(int no : keys) {
+								System.out.printf("▶ Page : %d \n",no);
+								for (Article index : rmap.get(no)) readTitle(index);
+							}
 							System.out.println("*********************");
 						}
 						
@@ -145,7 +149,8 @@ public class main {
 		HashMap<Integer, ArrayList<Article>> rst = new HashMap<>();
 		int set_ArtcPerPage = 10;
 //		int lastPage = (alist.size() % set_ArtcPerPage) > 0 ? (alist.size() / set_ArtcPerPage) + 1  : alist.size() / set_ArtcPerPage; 
-		int startPage = 1;
+
+		Integer startPage = 1;
 		while(alist.isEmpty() != true) {
 			temp = new ArrayList<>();
 			for(int i=0; i<alist.size(); i++) {

@@ -12,6 +12,7 @@ public class User {
 	
 	User(){
 		signUp("timandsunny", 1234, "donghee");
+		signUp("1",1,"test");
 		addAdmin("timandsunny");
 		_selectMode_();
 	}
